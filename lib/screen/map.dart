@@ -27,18 +27,50 @@ class _AllMapState extends State<AllMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: GoogleMap(
-          initialCameraPosition: CameraPosition(
-              target:
+      body: Container(
+        width: 500,
+        height: 400,
+        padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
+        child: Stack(
+          children: <Widget>[
+            GoogleMap(
+            initialCameraPosition: CameraPosition(
+            target:
                   LatLng(widget.positions.latitude, widget.positions.longitude),
-              zoom: 18.0),
-          mapType: MapType.satellite,
-          myLocationEnabled: true,
-          onMapCreated: (GoogleMapController controll) {
+            zoom: 18.0),
+            myLocationEnabled: true,
+            
+            onMapCreated: (GoogleMapController controll) {
             control.complete(controll);
-          },
-        ),
+            },           
+          ),
+          Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 370),
+          child: TextFormField(
+            decoration: InputDecoration(
+            labelText: 'Step Record 29/3'
+            ),
+            
+            )
+          ),
+          Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 420),
+          child: TextFormField(
+            decoration: InputDecoration(
+            labelText: 'Step Record 28/3'
+            ),
+            )
+          ),
+          Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 470),
+          child: TextFormField(
+            decoration: InputDecoration(
+            labelText: 'Step Record 27/3'
+            ),
+            )
+          ),
+        ],
+        )
       ),
     );
   }

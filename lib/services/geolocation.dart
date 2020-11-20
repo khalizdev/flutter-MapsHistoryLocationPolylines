@@ -1,5 +1,4 @@
 import 'package:geolocator/geolocator.dart';
-
 class LocatorService {
   final Geolocator geolocator = Geolocator();
   Stream<Position> getCurrentLocation() {
