@@ -10,6 +10,8 @@ class ScreenPage extends StatefulWidget {
   _ScreenPageState createState() => _ScreenPageState();
 }
 
+
+//Kelas untuk kontrol, marker, posisi, polylines ada disini
 class _ScreenPageState extends State<ScreenPage> {
   GoogleMapController googleMapController;
   Marker _marker;
@@ -23,19 +25,22 @@ class _ScreenPageState extends State<ScreenPage> {
   List<LatLng> _myRoutes = List();
   Position _lastPosition;
 
-
+  //inisialisasi pemanggilan start track
   @override
   void initState() {
     super.initState();
     _startTrack();
   }
 
+  //memulai pemanggilan google maps
   _startTrack(){
     final geolocator = Geolocator();
     final locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 5);
     _positionLokasi = geolocator.getPositionStream(locationOptions).listen(_posisi);
   }
 
+
+  //memulai mengambil posisi user
   _posisi(Position position){
     if(position != null)
     {
@@ -61,6 +66,8 @@ class _ScreenPageState extends State<ScreenPage> {
     }
   }
 
+
+  //fungsi untuk mengubah icon user
   double _getMyBearing(Position lastPosition, Position currentPosition){
   final x = math.cos(math.pi / 100 * lastPosition.latitude) * (currentPosition.longitude - lastPosition.longitude);
   final y = currentPosition.latitude - lastPosition.latitude;
@@ -78,12 +85,17 @@ class _ScreenPageState extends State<ScreenPage> {
     super.dispose();
   }
 
+
+  //melakukan update kamera jika posisi user berpindah
   _pindahposisi(Position position)
   {
     final cameraUpdate = CameraUpdate.newLatLng(LatLng(position.latitude, position.longitude));
     googleMapController.animateCamera(cameraUpdate);
   }
 
+
+  //sistem untuk menampilkan class diatas dan fungsi diatas
+  //penambahan tombol dan perbaikan ui disini
   @override
   Widget build(BuildContext context) {
     return Scaffold(
