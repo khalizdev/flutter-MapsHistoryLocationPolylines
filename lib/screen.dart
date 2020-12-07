@@ -1,24 +1,30 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math' show cos, sqrt, asin;
 
+
 class ScreenPage extends StatefulWidget {
   @override
   _ScreenPageState createState() => _ScreenPageState();
+
 }
 
 //Kelas untuk kontrol, marker, posisi, polylines ada disini
 class _ScreenPageState extends State<ScreenPage> {
+  final data = FirebaseDatabase.instance;
   GoogleMapController googleMapController;
   Marker _marker;
   double _placeDistance;
   double distance;
   String jarakLine;
   int langkah;
+  String datafirebase = "";
   final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
@@ -28,6 +34,8 @@ class _ScreenPageState extends State<ScreenPage> {
   Map<PolylineId, Polyline> _polilynes = Map();
   List<LatLng> _myRoutes = List();
   Position _lastPosition;
+
+
   jarak() {
     double _placeDistance;
     double totalDistance = 0.0;
@@ -144,6 +152,7 @@ class _ScreenPageState extends State<ScreenPage> {
   //penambahan tombol dan perbaikan ui disini
   @override
   Widget build(BuildContext context) {
+    final ref = data.reference().child("LangkahKaki");
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -175,7 +184,14 @@ class _ScreenPageState extends State<ScreenPage> {
               'step : $langkah',
               style: TextStyle(fontSize: 22),
             ),
-          )
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(40, 20, 20, 20),
+            child: RaisedButton(onPressed: ()=>{
+                ref.child("JumlahLangkah").set(langkah)
+            },
+            child: new Text("Simpan"),),
+            ),
         ],
       ),
     );
