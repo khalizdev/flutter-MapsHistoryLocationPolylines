@@ -152,12 +152,14 @@ class _ScreenPageState extends State<ScreenPage> {
   //penambahan tombol dan perbaikan ui disini
   @override
   Widget build(BuildContext context) {
-    final ref = data.reference().child("LangkahKaki");
+    final ref = data.reference().child("Maps2E");
+    final jarak = ref.reference().child("JarakTempuh");
+    final langkahkaki = ref.reference().child("JumlahLangkah");
     return Scaffold(
       body: ListView(
         children: <Widget>[
           Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: SizedBox(
                 width: 500,
                 height: 300,
@@ -173,24 +175,37 @@ class _ScreenPageState extends State<ScreenPage> {
               )),
           Padding(
             padding: EdgeInsets.fromLTRB(40, 20, 20, 20),
-            child: Text(
-              'Jarak ditempuh: $jarakLine KM',
-              style: TextStyle(fontSize: 22),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Jarak ditempuh: $jarakLine km',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22),
+                ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(40, 20, 20, 20),
-            child: Text(
-              'step : $langkah',
-              style: TextStyle(fontSize: 22),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Jumlah Langkah: $langkah',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22),
+                ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(40, 20, 20, 20),
-            child: RaisedButton(onPressed: ()=>{
-                ref.child("JumlahLangkah").set(langkah)
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: RaisedButton(
+              color: Colors.green,
+              onPressed: ()=>{
+                jarak.set(jarakLine + " km"),
+                langkahkaki.set(langkah)
             },
-            child: new Text("Simpan"),),
+            child: new Text("Simpan"),
+            textColor: Colors.white,),
+            
             ),
         ],
       ),
